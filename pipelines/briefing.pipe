@@ -1,0 +1,24 @@
+{
+  "name": "briefing.pipe",
+  "nodes": [
+    {
+      "id": "input",
+      "type": "Input",
+      "fields": {
+        "account_name": "string"
+      }
+    },
+    {
+      "id": "hindsight",
+      "type": "Hindsight",
+      "operation": "Reflect",
+      "bankId": "deal-intelligence",
+      "query": "{{input.account_name}}"
+    },
+    {
+      "id": "output",
+      "type": "Output",
+      "return": "{{hindsight.reflection}}"
+    }
+  ]
+}

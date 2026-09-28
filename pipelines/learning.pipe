@@ -1,0 +1,27 @@
+{
+  "name": "learning.pipe",
+  "nodes": [
+    {
+      "id": "input",
+      "type": "Input",
+      "fields": {
+        "deal_id": "string",
+        "notes": "string"
+      }
+    },
+    {
+      "id": "hindsight",
+      "type": "Hindsight",
+      "operation": "Retain",
+      "bankId": "deal-intelligence",
+      "content": "\"Notes for deal \" + {{input.deal_id}} + \": \" + {{input.notes}}"
+    },
+    {
+      "id": "output",
+      "type": "Output",
+      "return": {
+        "status": "success"
+      }
+    }
+  ]
+}

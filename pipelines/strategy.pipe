@@ -1,0 +1,39 @@
+{
+  "name": "strategy.pipe",
+  "nodes": [
+    {
+      "id": "input",
+      "type": "Input",
+      "fields": {
+        "question": "string",
+        "competitor": "string"
+      }
+    },
+    {
+      "id": "neo4j",
+      "type": "Neo4j",
+      "query": "MATCH (d:Deal)-[:COMPETED_AGAINST]->(c:Competitor {name: $competitor}) RETURN d.id as deal_id",
+      "parameters": {
+        "competitor": "{{input.competitor}}"
+      }
+    },
+    {
+      "id": "hindsight",
+      "type": "Hindsight",
+      "operation": "Recall",
+      "bankId": "deal-intelligence",
+      "query": "\"How did we win or lose against \" + {{input.competitor}} + \" - context: \" + {{input.question}}"
+    },
+    {
+      "id": "groq",
+      "type": "GroqLLM",
+      "model": "openai/gpt-oss-120b",
+      "prompt": "You are a Deal Intelligence Agent. \nThe rep is asking for advice: {{input.question}}\n\nHere are the memories from Hindsight about past deals against {{input.competitor}}:\n{{hindsight.results}}\n\nProvide a 3-bullet strategy on how to win this deal."
+    },
+    {
+      "id": "output",
+      "type": "Output",
+      "return": "{{groq.output}}"
+    }
+  ]
+}

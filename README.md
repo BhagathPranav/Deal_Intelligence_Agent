@@ -1,66 +1,46 @@
-# Deal Intelligence Agent 🚀
+# 🚀 Nexus Agent Swarm (Deal Intelligence Agent)
 
-A powerful AI assistant for B2B sales teams that leverages past deals, competitor intelligence, and call transcripts to provide winning strategies in real-time.
+> **Winner/Submission for the AIO Hackathon with HYD!**
 
-Built for **HackWithHyderabad 3.0**, this project demonstrates a state-of-the-art dual-memory architecture orchestrated by advanced visual AI pipelines.
+Nexus Agent Swarm is a next-generation autonomous multi-agent platform designed to rescue, accelerate, and win competitive sales deals. Instead of a traditional CRM, Nexus operates as a swarm of AI agents that actively monitor your pipeline, ingest call transcripts, build knowledge graphs, and take autonomous actions.
 
-## 🏗️ Architecture & Technologies
+## 🌟 Key Features (Agent Swarm)
 
-This project strictly adheres to the Hackathon Agent Skills requirements, utilizing three core technologies:
+- **📈 Monitor Agent**: Real-time pipeline observability. Analyzes win/loss ratios against competitors using Recharts visualizations.
+- **🧠 Strategist Agent**: Runs deep Neo4j Cypher queries against the Knowledge Graph to build battlecards, compare features, and identify missing capabilities.
+- **🕵️ Researcher Agent**: Analyzes historical call transcripts to generate Account Briefings, Engagement Velocity (Line Charts), and Key Discussion Topics (Donut Charts).
+- **📊 Intel Agent**: Provides deep market positioning using Scatter Plots and Radar Charts to visualize feature capabilities vs competitors.
+- **📧 Outreach Agent**: Drafts highly personalized, context-aware emails based on specific deal reasons and historical context.
+- **💾 Memory Agent (Ingestion)**: Processes raw call audio (MP3/transcripts), extracts Action Items, Pain Points, and Competitors, and natively syncs them to the Knowledge Graph.
 
-1. **HydraDB (Knowledge Graph)**
-   - Acts as the structured memory layer.
-   - Stores entities (Reps, Accounts, Deals, Competitors) and their relationships.
-   - Enables the agent to query structured history (e.g., "Which deals did we lose against TechNova?").
+## 🏗️ Architecture
 
-2. **Hindsight (Semantic Memory)**
-   - Acts as the unstructured memory layer.
-   - Ingests and parses raw call transcripts, post-call notes, and objection handling history.
-   - Uses \`reflect\` and \`retain\` operations to fetch deep semantic context during active deal strategy generation.
-
-3. **RocketRide (AI Pipeline Orchestration)**
-   - Powers the logic layer.
-   - We designed 3 distinct visual pipelines (located in \`/pipelines\`):
-     - \`strategy.pipe\`: Combines HydraDB graph lookups with Hindsight semantic recalls to feed Groq LLM context for real-time deal strategy.
-     - \`briefing.pipe\`: Generates pre-call account summaries.
-     - \`learning.pipe\`: Ingests new call notes back into Hindsight.
-
-4. **Next.js & Tailwind CSS**
-   - Provides a sleek, responsive dashboard for Sales Reps to interact with the agent.
+- **Frontend**: Next.js 14, TailwindCSS, Lucide Icons, Recharts for analytics.
+- **Backend**: Next.js API Routes.
+- **AI Engine**: Groq (`openai/gpt-oss-120b`) fallback layer with structured JSON output.
+- **Knowledge Graph**: Neo4j (HydraDB) / Hindsight vector embeddings.
+- **Orchestration**: RocketRide C++ engine (with robust Node.js fallbacks).
 
 ## 🚀 Getting Started
 
-### 1. Prerequisites
-- Docker & Docker Compose
-- Node.js (v20+)
-- Groq API Key
+1. **Install Dependencies**
+   ```bash
+   npm install
+   ```
 
-### 2. Infrastructure Setup
-Boot up the dual-memory architecture (HydraDB and Hindsight):
-\`\`\`bash
-docker compose up -d
-\`\`\`
-- Hindsight API runs on \`localhost:8888\` (UI on \`9999\`)
-- HydraDB runs on \`bolt://localhost:7687\`
+2. **Set Environment Variables**
+   Ensure you have your `.env.local` configured:
+   ```env
+   GROQ_API_KEY=gsk_your_api_key_here
+   ```
 
-### 3. Data Ingestion
-Populate the databases with synthetic B2B sales data:
-\`\`\`bash
-cd deal-intelligence-agent
-npm install
-npx tsx scripts/generateAndIngest.ts
-\`\`\`
+3. **Run the Dashboard**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) to view the Agent Swarm.
 
-### 4. Run the Web App
-Start the Next.js UI:
-\`\`\`bash
-npm run dev
-\`\`\`
-Navigate to \`http://localhost:3000\`.
-
-## 🧠 How it Works
-1. **Ingest Notes:** A rep finishes a call and pastes their notes into the UI. The \`learning.pipe\` stores this unstructured data in Hindsight.
-2. **Strategy Generation:** Another rep is facing a competitor. They ask the agent for advice. The \`strategy.pipe\` queries HydraDB to find past deals against that competitor, pulls the relevant call notes from Hindsight, and uses a Groq LLM to synthesize a 3-bullet winning strategy.
-
-## 📜 License
-MIT
+## 💡 Hackathon Highlights
+- Fully responsive dark-mode UI with glowing interactive components.
+- Live Terminal Trace overlays showing real-time backend agent thought processes.
+- Autonomous Action Buttons ("Rescue Deal", "Escalate") simulating real-time Slack/Salesforce API integrations.

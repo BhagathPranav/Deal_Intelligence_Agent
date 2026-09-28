@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { runStrategyPipeline, runBriefingPipeline } from "@/lib/rocketride";
+import { runStrategyPipeline, runBriefingPipeline, runBattlecardPipeline } from "@/lib/rocketride";
 
 export async function POST(req: Request) {
   try {
@@ -9,11 +9,14 @@ export async function POST(req: Request) {
     let result;
 
     if (action === "strategy") {
-      // payload: { question, competitor }
       result = await runStrategyPipeline(payload.question, payload.competitor);
     } else if (action === "briefing") {
-      // payload: { account_name }
       result = await runBriefingPipeline(payload.account_name);
+    } else if (action === "battlecard") {
+      result = await runBattlecardPipeline(payload.competitor);
+    } else if (action === "email") {
+      const { runEmailPipeline } = await import("@/lib/rocketride");
+      result = await runEmailPipeline(payload.account_name, payload.reason);
     } else {
       return NextResponse.json({ error: "Invalid action" }, { status: 400 });
     }

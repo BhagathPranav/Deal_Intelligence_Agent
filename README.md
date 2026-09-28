@@ -18,7 +18,9 @@ Nexus Agent Swarm is a next-generation autonomous multi-agent platform designed 
 - **Frontend**: Next.js 14, TailwindCSS, Lucide Icons, Recharts for analytics.
 - **Backend**: Next.js API Routes.
 - **AI Engine**: Groq (`openai/gpt-oss-120b`) fallback layer with structured JSON output.
-- **Knowledge Graph**: Neo4j (HydraDB) / Hindsight vector embeddings.
+- **Memory & Knowledge Graph**: 
+  - We leverage [Vectorize agent memory](https://vectorize.io/what-is-agent-memory) powered by [Hindsight](https://github.com/vectorize-io/hindsight) to give our agents persistent, long-term memory across deal cycles.
+  - See the [Hindsight docs](https://hindsight.vectorize.io/) for how we integrated Neo4j (HydraDB) vector embeddings.
 - **Orchestration**: RocketRide C++ engine (with robust Node.js fallbacks).
 
 ## 🚀 Getting Started
